@@ -31,7 +31,7 @@
     <div class="container">
         <div class="audio-container">
             {% for audio in all_audio %}
-                <p>{{ audio.name }}</p>
+                <!-- <p>{{ audio.name }}</p> -->
                 <!-- <meta id="song-src" data-name="data:audio/wav;charset=utf-8;base64,{{ audio.audio | b64encode }}"> -->
                 <input type="hidden" name="songSrc" class="songSrc" value="{{ audio.audio | b64encode }}">
                 <h1 class="test"></h1>
@@ -40,8 +40,7 @@
         <div class="player">
 
             <div class="names">
-                <p class="track-name">Song Name</p>
-                <p class="artist-name">Artist Name</p>
+                <p class="track-name" id="track-name">Song Name</p>
             </div>
             
             <div class="player-inputs">
