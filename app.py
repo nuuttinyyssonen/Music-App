@@ -4,7 +4,9 @@ from flask_login import UserMixin, login_user, logout_user, LoginManager, login_
 from decouple import config
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 from forms import *
+from custom import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('SECRET_KEY')
@@ -23,6 +25,8 @@ def create_tables():
 @login.user_loader
 def load_user(id):
   return User.query.get(int(id))
+
+app.jinja_env.filters['b64encode'] = b64encode
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -59,4 +63,26 @@ def signup():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
-   return render_template('main.html')
+   all_audio = Audio.query.all()
+   return render_template('main.html', all_audio=all_audio)
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+	uploadBtn = request.form.get('submit', False)
+
+	if uploadBtn != False:
+		audio = request.files['audio']
+
+		if not audio:
+			return 'No pic uploaded', 400
+
+		filename = secure_filename(audio.filename)
+		mimetype = audio.mimetype
+
+		db.session.expunge_all()
+
+		audioFile = Audio(audio=audio.read(), mimetype=mimetype, name=filename)
+		db.session.add(audioFile)
+		db.session.commit()
+
+	return render_template('upload.html')

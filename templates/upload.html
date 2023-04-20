@@ -10,12 +10,9 @@
 </head>
 <body>
     <div class="container">
-        <form action="/signup" method="post">
-            {{ form.hidden_tag() }}
-            {{ form.email(size=32, placeholder="Email") }}
-            {{ form.password(size=32, placeholder="Password") }}
-            {{ form.password2(size=32, placeholder="Repeat Password") }}
-            {{ form.submit() }}
+        <form action="/upload" enctype="multipart/form-data" method="post">
+            <input type="file" name="audio"/>
+            <button name="submit" type="submit">Upload</button>
         </form>
     </div>
 </body>

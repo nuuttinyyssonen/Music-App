@@ -10,3 +10,10 @@ class User(db.Model, UserMixin):
     
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+class Audio(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    audio = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    mimetype = db.Column(db.String, nullable=False)
+
