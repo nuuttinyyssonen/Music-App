@@ -14,18 +14,38 @@ body {
     margin: 0 auto;
     bottom: 0;
     left: 0;
-    padding: 18px;
+    padding: 10px;
+    padding-bottom: 15px;
     border-top: 1px solid grey;
 }
 
 .audio-container {
     display: grid;
-    place-content: center;
+    overflow-y: scroll;
+    place-content: center end;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 3000px;
+    max-height: 820px;
     grid-template-columns: repeat(5, 200px);
     gap: 20px;
-    padding-top: 50px;
+    padding-top: 150px;
+}
+
+.btn-play {
+    margin-left: 65px;
+    margin-top: 85px;
+    border: none;
+    color: white;
+    background-color: transparent;
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.btn-play:hover {
+    opacity: 1.0;
 }
 
 .element {
@@ -33,6 +53,11 @@ body {
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 15px;
+    transition: 0.5s;
+}
+
+.element:hover {
+    opacity: 0.6;
 }
 
 .names {
@@ -68,12 +93,12 @@ body {
 }
 
 #play {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     padding-left: 10px;
     padding-right: 10px;
     color: white;
-    font-size: 28px;
+    font-size: 32px;
 }
 
 #seek-slider {

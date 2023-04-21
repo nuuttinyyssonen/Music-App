@@ -43,7 +43,7 @@ let timeSecond = 0
 
 function playAudio() {
     track.play()
-    console.log(imgArray)
+    playBtn.className = "fa fa-pause-circle"
     play.removeEventListener('click', playAudio)
     play.addEventListener('click', pauseAudio)
     countdown = setInterval(() => {
@@ -63,6 +63,7 @@ function displayTime(seconds) {
 
 function pauseAudio() {
     track.pause()
+    playBtn.className = "fa fa-play-circle"
     play.removeEventListener('click', pauseAudio)
     play.addEventListener('click', playAudio)
     clearInterval(countdown)

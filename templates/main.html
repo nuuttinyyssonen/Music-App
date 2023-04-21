@@ -35,6 +35,7 @@
                 <input type="hidden" name="imgSrc" class="imgSrc" value="{{ audio.img | b64encode }}">
                 <div class="element">
                     <img class="albumCover" src="data:image/jpeg;charset=utf-8;base64,{{ audio.img | b64encode }}">
+                    <button disabled class="btn-play fa fa-play-circle"></button>
                     <p>{{ audio.song_name }}</p>
                     <p>{{ audio.artist_name }}</p>
                 </div>  
