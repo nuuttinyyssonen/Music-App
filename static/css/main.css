@@ -18,6 +18,23 @@ body {
     border-top: 1px solid grey;
 }
 
+.audio-container {
+    display: grid;
+    place-content: center;
+    margin: 0 auto;
+    max-width: 800px;
+    grid-template-columns: repeat(5, 200px);
+    gap: 20px;
+    padding-top: 50px;
+}
+
+.element {
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 15px;
+}
+
 .names {
     display: flex;
     justify-content: start;
@@ -51,13 +68,12 @@ body {
 }
 
 #play {
-    background-color: white;
-    border-radius: 50%;
     margin-left: 20px;
     margin-right: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    color: #121212;
+    color: white;
+    font-size: 28px;
 }
 
 #seek-slider {

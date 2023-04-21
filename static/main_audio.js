@@ -1,4 +1,5 @@
 let songSrc = document.getElementsByClassName('songSrc');
+let albumList = document.querySelectorAll('.albumCover')
 let play = document.getElementById('play');
 let songList = document.querySelectorAll('.songSrc');
 let track = document.getElementById('track');
@@ -9,6 +10,7 @@ let timer = document.getElementById('duration');
 let currentTimer = document.getElementById('current-time');
 let trackName = document.getElementById('track-name');
 let timeSlider = document.getElementById('seek-slider');
+let playBtn = document.getElementById('playBtn');
 
 play.addEventListener('click', playAudio)
 prev.addEventListener('click', playAgain)
@@ -16,7 +18,17 @@ next.addEventListener('click', nextTrack)
 prev.addEventListener('dblclick', prevTrack)
 
 let songArray = [];
+let imgArray = []
 let songIndex = 0
+
+albumList.forEach(album => {
+    imgArray.push(album)
+    album.addEventListener('click', () => {
+        let index = imgArray.indexOf(album)
+        track.src = songArray[index]
+        playAudio()
+    })
+})
 
 songList.forEach(song => {
     songArray.push("data:audio/wav;charset=utf-8;base64," + song.value)
@@ -31,20 +43,21 @@ let timeSecond = 0
 
 function playAudio() {
     track.play()
+    console.log(imgArray)
     play.removeEventListener('click', playAudio)
     play.addEventListener('click', pauseAudio)
     countdown = setInterval(() => {
         timeSecond++
         seconds = Math.round(track.duration % 60)
         timer.textContent = Math.round(track.duration / 60) + ":" + seconds
-        displayTime(timeSecond)
+        displayTime(track.currentTime)
     }, 1000)
 }
 
 function displayTime(seconds) {
     sec = Math.floor(seconds % 60)
     min = Math.floor(seconds / 60)
-    currentTimer.innerHTML = `${min<10 ? "0" : ""}${min}:${sec<10 ? "0" : ""}${sec}`
+    currentTimer.innerHTML = `${min}:${sec<10 ? "0" : ""}${sec}`
 }
 
 
@@ -91,6 +104,16 @@ volume.addEventListener('input', (e) => {
     track.volume = e.currentTarget.value / 100
 })
 
-timeSlider.addEventListener('input', (e) => {
-    track.duration = e.currentTarget.value
+
+if(track.play()) {
+    setInterval(() => {
+        timeSlider.max = track.duration
+        timeSlider.value = track.currentTime
+        console.log(track.currentTime)
+    },1000)
+}
+
+timeSlider.onchange = (() => {
+    track.play();
+    track.currentTime = timeSlider.value
 })

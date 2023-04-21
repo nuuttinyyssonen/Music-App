@@ -63,7 +63,7 @@ def signup():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
-   all_audio = Audio.query.all()
+   all_audio = Song.query.all()
    return render_template('main.html', all_audio=all_audio)
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -72,16 +72,23 @@ def upload():
 
 	if uploadBtn != False:
 		audio = request.files['audio']
+		img = request.files['img']
+
+		song_name = request.form.get('songName')
+		artist_name = request.form.get('artist')
 
 		if not audio:
 			return 'No pic uploaded', 400
 
-		filename = secure_filename(audio.filename)
-		mimetype = audio.mimetype
+		audio_filename = secure_filename(audio.filename)
+		audio_mimetype = audio.mimetype
+
+		img_filename = secure_filename(img.filename)
+		img_mimetype = secure_filename(img.filename)
 
 		db.session.expunge_all()
 
-		audioFile = Audio(audio=audio.read(), mimetype=mimetype, name=filename)
+		audioFile = Song(audio=audio.read(), img=img.read(), audio_mimetype=audio_mimetype, img_mimetype=img_mimetype, audio_filename=audio_filename, img_filename=img_filename, song_name=song_name, artist_name=artist_name)
 		db.session.add(audioFile)
 		db.session.commit()
 

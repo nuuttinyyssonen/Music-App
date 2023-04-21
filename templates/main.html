@@ -31,10 +31,13 @@
     <div class="container">
         <div class="audio-container">
             {% for audio in all_audio %}
-                <!-- <p>{{ audio.name }}</p> -->
-                <!-- <meta id="song-src" data-name="data:audio/wav;charset=utf-8;base64,{{ audio.audio | b64encode }}"> -->
                 <input type="hidden" name="songSrc" class="songSrc" value="{{ audio.audio | b64encode }}">
-                <h1 class="test"></h1>
+                <input type="hidden" name="imgSrc" class="imgSrc" value="{{ audio.img | b64encode }}">
+                <div class="element">
+                    <img class="albumCover" src="data:image/jpeg;charset=utf-8;base64,{{ audio.img | b64encode }}">
+                    <p>{{ audio.song_name }}</p>
+                    <p>{{ audio.artist_name }}</p>
+                </div>  
             {% endfor %}
         </div>
         <div class="player">
@@ -49,7 +52,7 @@
                         <i class="fa-solid fa-backward-step"></i>
                     </button>
                     <button id="play" class="play inputBtn">
-                        <i class="fa-solid fa-play"></i>
+                        <i id="playBtn" class="fa fa-play-circle"></i>
                     </button>
                     <button id="forward" class="forward inputBtn">
                         <i class="fa-solid fa-forward-step"></i>
