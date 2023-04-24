@@ -1,0 +1,13 @@
+
+{% block content %}
+    <ul>
+        <li><a class="title" href="{{ url_for('main') }}"><i class="fa-brands fa-spotify"></i> <strong>Spotify</strong></a></li>
+        <br>
+        <li><a href="{{ url_for('main') }}"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="{{ url_for('search') }}"><i class="fa-solid fa-magnifying-glass"></i> Search</a></li>
+        <li><a href="#"><i class="fa-solid fa-book"></i> Libary</a></li>
+        <li><a href="#"><i class="fa-regular fa-square-plus"></i> Create Playlist</a></li>
+        <li><a href="#"><i class="fa-regular fa-heart"></i> Favourites</a></li>
+        <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Log out</a></li>
+    </ul>
+{% endblock %}

@@ -13,8 +13,8 @@
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/player.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
     <title>Document</title>
 </head>
 <body>
@@ -22,16 +22,29 @@
     {% block content %}
     {% endblock %}
     <div class="container">
-        <div class="audio-container">
-            {% for audio in all_audio %}
-                <input type="hidden" name="songSrc" class="songSrc" value="{{ audio.audio | b64encode }}">
-                <input type="hidden" name="imgSrc" class="imgSrc" value="{{ audio.img | b64encode }}">
-                <div class="element">
-                    <img class="albumCover" src="data:image/jpeg;charset=utf-8;base64,{{ audio.img | b64encode }}">
-                    <button disabled class="btn-play fa fa-play-circle"></button>
-                    <p>{{ audio.song_name }}</p>
-                    <p>{{ audio.artist_name }}</p>
-                </div>  
+
+        <form class="searchBox" action="/search" method="post">
+            <button class="searchBtn" name="searchBtn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input class="searchInput" name="search" placeholder="Search for song or artist..."/>
+        </form>
+
+        <div class="content">
+            {% for song in songs %}
+                <input type="hidden" name="songSrc" class="songSrc" value="{{ song.audio | b64encode }}">
+                <input type="hidden" name="imgSrc" class="imgSrc" value="{{ song.img | b64encode }}">
+                <div class="one-element">
+                    <button class="searchPlay">
+                        <i class="fa fa-play"></i>
+                    </button>
+                    <img class="searchAlbum" src="data:image/jpeg;charset=utf-8;base64,{{ song.img | b64encode }}"/>
+                    <div class="texts">
+                        <p>{{ song.song_name }}</p>
+                        <p>{{ song.artist_name }}</p>
+                        <p class="songLength"></p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     {% include "player.html" %}

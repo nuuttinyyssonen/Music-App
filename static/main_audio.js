@@ -11,6 +11,8 @@ let currentTimer = document.getElementById('current-time');
 let trackName = document.getElementById('track-name');
 let timeSlider = document.getElementById('seek-slider');
 let playBtn = document.getElementById('playBtn');
+let searchPlayButtons = document.querySelectorAll('.searchPlay');
+let songLength = document.querySelectorAll('.songLength');
 
 play.addEventListener('click', playAudio)
 prev.addEventListener('click', playAgain)
@@ -18,14 +20,28 @@ next.addEventListener('click', nextTrack)
 prev.addEventListener('dblclick', prevTrack)
 
 let songArray = [];
-let imgArray = []
-let songIndex = 0
+let imgArray = [];
+let buttonArray = []
+let songIndex = 0;
+
+songLength.forEach(song => {
+    song.textContent = track.duration
+})
+
+searchPlayButtons.forEach(button => {
+    buttonArray.push(button)
+    button.addEventListener('click', () => {
+        songIndex = buttonArray.indexOf(button)
+        track.src = songArray[songIndex]
+        playAudio()
+    })
+})
 
 albumList.forEach(album => {
     imgArray.push(album)
     album.addEventListener('click', () => {
-        let index = imgArray.indexOf(album)
-        track.src = songArray[index]
+        songIndex = imgArray.indexOf(album)
+        track.src = songArray[songIndex]
         playAudio()
     })
 })
@@ -33,11 +49,6 @@ albumList.forEach(album => {
 songList.forEach(song => {
     songArray.push("data:audio/wav;charset=utf-8;base64," + song.value)
 })
-
-function setSong() {
-    track.src = songArray[0]
-}
-setSong()
 
 let timeSecond = 0
 

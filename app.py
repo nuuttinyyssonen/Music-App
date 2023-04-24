@@ -7,6 +7,8 @@ from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
 from forms import *
 from custom import *
+import sys
+sys.setrecursionlimit(100000)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('SECRET_KEY')
@@ -93,3 +95,14 @@ def upload():
 		db.session.commit()
 
 	return render_template('upload.html')
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+	searchBtn = request.form.get('searchBtn', False)
+	searchInput = request.form.get('search')
+	songs = ""
+
+	if searchBtn != False:
+		songs = Song.query.filter(Song.song_name.like('%' + searchInput + '%'))
+
+	return render_template('search.html', songs=songs)
