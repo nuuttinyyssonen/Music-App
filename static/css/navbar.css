@@ -27,6 +27,18 @@ li a {
     color: white;
 }
 
+.playlistBtn {
+    background-color: transparent;
+    border: none;
+    padding: 14px 26px;
+    color: white;
+}
+
+.border {
+    color: white;
+    max-width: 85%;
+}
+
 li a:hover {
     text-decoration: none;
     color: white;

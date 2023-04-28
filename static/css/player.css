@@ -46,6 +46,10 @@ body {
     font-size: 22px;
 }
 
+#top-text {
+    color: black;
+}
+
 .back {
     color: lightgray;
     width: 30px;

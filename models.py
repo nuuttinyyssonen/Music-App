@@ -21,3 +21,19 @@ class Song(db.Model, UserMixin):
     img_mimetype = db.Column(db.String, nullable=False)
     song_name = db.Column(db.String, unique=True)
     artist_name = db.Column(db.String, unique=False)
+    
+
+class Playlist(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    # song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # song = db.relationship("Song", foreign_keys='Playlist.song_id')
+    songs = db.relationship("PlaylistSongs", backref='playlist')
+    user = db.relationship("User", foreign_keys='Playlist.user_id')
+    playlist_name = db.Column(db.String, unique=False)
+
+class PlaylistSongs(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    playlist_id = db.Column(db.Integer, db.ForeignKey('playlist.id'))
+    song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
+    song = db.relationship("Song", foreign_keys='PlaylistSongs.song_id')

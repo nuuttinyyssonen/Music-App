@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, flash, request
+from flask import Flask, redirect, url_for, render_template, flash, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, logout_user, LoginManager, login_required
 from decouple import config
@@ -35,6 +35,7 @@ def login():
 	form = Login()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
+		session['email'] = form.email.data
 
 		if user is None or not user.check_password(form.password.data):
 			flash('Invalid Password or Email')
@@ -47,6 +48,7 @@ def login():
 		if not next_page or url_parse(next_page).netloc != '':
 			print('working')
 			next_page = url_for('main')
+
 		return redirect(next_page)
    
 	return render_template('login.html', form=form)
@@ -65,8 +67,25 @@ def signup():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
-   all_audio = Song.query.all()
-   return render_template('main.html', all_audio=all_audio)
+	playlistBtn = request.form.get('playlist', False)
+	user = User.query.filter_by(email=session['email']).first()
+	if playlistBtn != False:
+		playlist = Playlist(playlist_name="Playlist 1", user=user)
+		db.session.add(playlist)
+		db.session.commit()
+		return redirect(url_for('playlist', id=playlist.id))
+
+	all_audio = Song.query.all()
+	return render_template('main.html', all_audio=all_audio)
+
+
+@app.context_processor
+def utility_processor():
+	if session['email'] != "":
+		user = User.query.filter_by(email=session['email']).first()
+		user_id = user.id
+		playlists = Playlist.query.filter_by(user_id=user_id).all()
+		return dict(playlists=playlists)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -106,3 +125,27 @@ def search():
 		songs = Song.query.filter(Song.song_name.like('%' + searchInput + '%'))
 
 	return render_template('search.html', songs=songs)
+
+@app.route('/playlist/<int:id>', methods=['GET', 'POST'])
+def playlist(id):
+	playlist = Playlist.query.filter_by(id=id).first()
+	search = request.form.get('searchBtn', False)
+	searchValue = request.form.get('search')
+	songs = ""
+	addBtn = request.form.get('add', False)
+	song_id = request.form.get('songId')
+
+	if search != False:
+		songs = Song.query.filter(Song.song_name.like('%' + searchValue + '%'))
+
+	if addBtn != False:
+		song = PlaylistSongs(song_id=song_id, playlist_id=id)
+		db.session.add(song)
+		db.session.commit()
+
+	playlist_songs = playlist.songs
+	for song in playlist_songs:
+		print(song.song)
+	
+
+	return render_template('playlist.html', playlist=playlist, songs=songs, id=id, playlist_songs=playlist_songs)

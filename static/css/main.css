@@ -6,11 +6,12 @@
     overflow-y: scroll;
     place-content: center end;
     margin: 0 auto;
-    max-width: 4000px;
-    max-height: 820px;
+    width: 90%;
+    max-height: 90%;
     grid-template-columns: repeat(6, 230px);
     gap: 20px;
     padding-top: 150px;
+    padding-bottom: 15px;
 }
 
 .btn-play {

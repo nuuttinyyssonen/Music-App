@@ -2,7 +2,7 @@ body {
     background-color: white
 }
 
-.navbar {
+.login-navbar {
     padding-top: 20px;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ body {
     padding-bottom: 20px;
 }
 
-.container {
+.login-container {
     display: flex;
     justify-content: start;
     align-items: start;
@@ -22,7 +22,7 @@ body {
     padding-bottom: 20px;
 }
 
-.inputBtn {
+.login-inputBtn {
     border-radius: 15px;
     background-color: #1FDF64;
     color: black;
@@ -32,7 +32,7 @@ body {
     width: 100px;
 }
 
-.input {
+.login-input {
     width: max-content;
     height: 50px;
     border-radius: 5px;
@@ -51,11 +51,16 @@ img {
     text-align: center;
 }
 
-.input-text {
+#input-text {
     margin-top: 15px;
+    color: black;
 }
 
-.signup-link {
+#no-account {
+    color: black;
+}
+
+#signup-link {
     text-decoration: none;
     color: black;
     border: 1px solid black;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include "head.html" %}
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/playlist.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    {% include "navbar.html" %}
+    {% block content %}
+    {% endblock %}
+    <div class="container">
+        {% for song in playlist_songs %}
+            <input type="hidden" name="songSrc" class="songSrc" value="{{ song.song.audio | b64encode }}">
+            <input type="hidden" name="imgSrc" class="imgSrc" value="{{ song.song.img | b64encode }}">
+            <div class="one-element">
+                <button class="searchPlay">
+                    <i class="fa fa-play"></i>
+                </button>
+                <img class="searchAlbum" src="data:image/jpeg;charset=utf-8;base64,{{ song.song.img | b64encode }}"/>
+                <div class="texts">
+                    <p>{{ song.song.song_name }}</p>
+                    <p>{{ song.song.artist_name }}</p>
+                    <p class="songLength"></p>
+                </div>
+        </div> 
+        {% endfor %}
+        <form class="searchBox" action="/playlist/{{ id }}" method="post">
+            <button class="searchBtn" name="searchBtn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input class="searchInput" name="search" placeholder="Search for song or artist..."/>
+        </form>
+        {% for song in songs %}
+        <input type="hidden" name="songSrc" class="songSrc" value="{{ song.audio | b64encode }}">
+        <input type="hidden" name="imgSrc" class="imgSrc" value="{{ song.img | b64encode }}">
+        <div class="one-element">
+            <button class="searchPlay">
+                <i class="fa fa-play"></i>
+            </button>
+            <img class="searchAlbum" src="data:image/jpeg;charset=utf-8;base64,{{ song.img | b64encode }}"/>
+            <div class="texts">
+                <p>{{ song.song_name }}</p>
+                <p>{{ song.artist_name }}</p>
+                <p class="songLength"></p>
+                <form action="/playlist/{{ id }}" method="post">
+                    <button class="AddBtn" name="add" type="submit">Add To Playlist</button>
+                    <input type="hidden" name="songId" value="{{ song.id }}">
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% include "player.html" %}
+    {% block elements %}
+    {% endblock %}
+    <script src="{{ url_for('static', filename='main_audio.js') }}"></script>
+</body>
+</html>

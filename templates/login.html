@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% include "head.html" %}
+    {% block head %}
+    {% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <div class="navbar">
+    <div class="login-navbar">
         <img src="{{ url_for('static', filename='Spotify_pic.png') }}">
     </div>
-    <div class="container">
+    <div class="login-container">
         <form class="login" action="/" method="post">
             {{ form.hidden_tag() }}
-            <p><strong>Email or Username</strong></p>
-            {{ form.email(size=32, class="input", placeholder="Email") }}
-            <p class="input-text"><strong>Password</strong></p>
-            {{ form.password(size=32, class="input", placeholder="Password") }}
+            <p id="top-text"><strong>Email or Username</strong></p>
+            {{ form.email(size=32, class="login-input", placeholder="Email") }}
+            <p id="input-text" class="input-text"><strong>Password</strong></p>
+            {{ form.password(size=32, class="login-input", placeholder="Password") }}
             <br>
-            {{ form.submit(class="inputBtn") }}
+            {{ form.submit(class="login-inputBtn") }}
         </form>
     </div>
     <div class="register">
-        <p>No account yet?</p>
-        <a class="signup-link" href="{{ url_for('signup') }}">Signup</a>
+        <p id="no-account">No account yet?</p>
+        <a id="signup-link" class="signup-link" href="{{ url_for('signup') }}">Signup</a>
     </div>
 </body>
 </html>
