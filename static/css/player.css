@@ -27,6 +27,12 @@ body {
     display: flex;
     justify-content: start;
     align-items: center;
+    flex-direction: row;
+}
+
+.text-names {
+    display: flex;
+    flex-direction: column;
 }
 
 .volume {
@@ -36,8 +42,21 @@ body {
 }
 
 .track-name {
-    padding-left: 40px;
-    margin-top: 20px;
+    position: absolute;
+    left: 100px;
+    top: 10px;
+}
+
+.artist-name {
+    position: absolute;
+    left: 100px;
+    color: #b3b3b3;
+    font-weight: 1;
+}
+
+#playing-pic {
+    max-width: 90px;
+    padding-left: 30px;
 }
 
 .inputBtn {

@@ -4,9 +4,10 @@
     right: 0;
     padding-right: 40px;
     overflow-y: scroll;
+    overflow-x: auto;
     place-content: center end;
     margin: 0 auto;
-    width: 90%;
+    max-width: 87%;
     max-height: 90%;
     grid-template-columns: repeat(6, 230px);
     gap: 20px;

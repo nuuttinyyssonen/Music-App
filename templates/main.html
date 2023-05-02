@@ -15,6 +15,8 @@
             {% for audio in all_audio %}
                 <input type="hidden" name="songSrc" class="songSrc" value="{{ audio.audio | b64encode }}">
                 <input type="hidden" name="imgSrc" class="imgSrc" value="{{ audio.img | b64encode }}">
+                <input type="hidden" name="songName" class="songNames" value="{{ audio.song_name }}">
+                <input type="hidden" name="artistName" class="artistNames" value="{{ audio.artist_name }}">
                 <div class="element">
                     <img class="albumCover" src="data:image/jpeg;charset=utf-8;base64,{{ audio.img | b64encode }}">
                     <button disabled class="btn-play fa fa-play-circle"></button>

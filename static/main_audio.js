@@ -1,7 +1,5 @@
 let songSrc = document.getElementsByClassName('songSrc');
-let albumList = document.querySelectorAll('.albumCover')
 let play = document.getElementById('play');
-let songList = document.querySelectorAll('.songSrc');
 let track = document.getElementById('track');
 let prev = document.getElementById('prev');
 let volume = document.getElementById('volume');
@@ -11,8 +9,21 @@ let currentTimer = document.getElementById('current-time');
 let trackName = document.getElementById('track-name');
 let timeSlider = document.getElementById('seek-slider');
 let playBtn = document.getElementById('playBtn');
+
+let songNameList = document.querySelectorAll('.songNames');
+let artistNameList = document.querySelectorAll('.artistNames');
+let albumList = document.querySelectorAll('.albumCover');
+let songList = document.querySelectorAll('.songSrc');
 let searchPlayButtons = document.querySelectorAll('.searchPlay');
 let songLength = document.querySelectorAll('.songLength');
+
+let playingPic = document.getElementById('playing-pic');
+
+let currentTrackName = document.getElementById('track-name');
+let currentArtistName = document.getElementById('artist-name');
+
+let searchAlbum = document.querySelectorAll('.searchAlbum');
+
 
 play.addEventListener('click', playAudio)
 prev.addEventListener('click', playAgain)
@@ -21,8 +32,15 @@ prev.addEventListener('dblclick', prevTrack)
 
 let songArray = [];
 let imgArray = [];
-let buttonArray = []
+let searchImgArray = [];
+let songNameArray = [];
+let artistNameArray = [];
+let buttonArray = [];
 let songIndex = 0;
+
+searchAlbum.forEach(img => {
+    searchImgArray.push(img)
+})
 
 songLength.forEach(song => {
     song.textContent = track.duration
@@ -33,6 +51,9 @@ searchPlayButtons.forEach(button => {
     button.addEventListener('click', () => {
         songIndex = buttonArray.indexOf(button)
         track.src = songArray[songIndex]
+        playingPic.src = searchImgArray[songIndex].currentSrc
+        currentTrackName.textContent = songNameArray[songIndex].defaultValue
+        currentArtistName.textContent = artistNameArray[songIndex].defaultValue
         playAudio()
     })
 })
@@ -42,8 +63,20 @@ albumList.forEach(album => {
     album.addEventListener('click', () => {
         songIndex = imgArray.indexOf(album)
         track.src = songArray[songIndex]
+        playingPic.src = imgArray[songIndex].currentSrc
+        currentTrackName.textContent = songNameArray[songIndex].defaultValue
+        currentArtistName.textContent = artistNameArray[songIndex].defaultValue
+        console.log(songNameArray)
         playAudio()
     })
+})
+
+songNameList.forEach(song => {
+    songNameArray.push(song)
+})
+
+artistNameList.forEach(artist => {
+    artistNameArray.push(artist)
 })
 
 songList.forEach(song => {
@@ -94,6 +127,9 @@ function prevTrack() {
     track.currentTime = 0
     songIndex -= 1
     track.src = songArray[songIndex]
+    playingPic.src = imgArray[songIndex].currentSrc
+    currentTrackName.textContent = songNameArray[songIndex].defaultValue
+    currentArtistName.textContent = artistNameArray[songIndex].defaultValue
     clearInterval(countdown)
     playAudio()
     timeSecond = 0
@@ -106,6 +142,9 @@ function nextTrack() {
     track.currentTime = 0
     songIndex += 1
     track.src = songArray[songIndex]
+    playingPic.src = imgArray[songIndex].currentSrc
+    currentTrackName.textContent = songNameArray[songIndex].defaultValue
+    currentArtistName.textContent = artistNameArray[songIndex].defaultValue
     clearInterval(countdown)
     playAudio()
     timeSecond = 0
@@ -121,7 +160,6 @@ if(track.play()) {
     setInterval(() => {
         timeSlider.max = track.duration
         timeSlider.value = track.currentTime
-        console.log(track.currentTime)
     },1000)
 }
 
