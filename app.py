@@ -65,6 +65,12 @@ def signup():
 		return redirect(url_for('login'))
 	return render_template('signup.html', form=form)
 
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+	logout_user()
+	return redirect(url_for('login'))
+
 @app.route('/main', methods=['GET', 'POST'])
 def main():
 	playlistBtn = request.form.get('playlist', False)

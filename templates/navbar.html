@@ -8,7 +8,7 @@
         <li><a href="#"><i class="fa-solid fa-book"></i> Libary</a></li>
         <li><form action="/main" method="post"><button class="playlistBtn" name="playlist"><i class="fa-regular fa-square-plus"></i> Create Playlist</button></form></li>
         <li><a href="#"><i class="fa-regular fa-heart"></i> Favourites</a></li>
-        <li><a class="logout" href="#"><i class="fa-solid fa-right-from-bracket"></i> Log out</a></li>
+        <li><a class="logout" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Log out</a></li>
         <hr class="border">
         {% for playlist in playlists %}
             <li><a href="{{ url_for('playlist', id=playlist.id) }}">{{ playlist.playlist_name }}</a></li>
