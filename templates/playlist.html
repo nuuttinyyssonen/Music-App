@@ -12,6 +12,16 @@
     {% block content %}
     {% endblock %}
     <div class="container">
+        <div class="header-playlist">
+            <img src="{{ url_for('static', filename='Playlist_pic.png') }}" class="playlist_pic">
+            <div class="playlist-header-text-area">
+                <h1 id="playlist_name" class="playlist_name">{{ playlist_name }}</h1>
+                <form action="/playlist/{{ playlist.id }}" method="post" id="change-name" class="change-name">
+                    <input name="playlist-name" class="playlist-name-input" placeholder="Enter playlist name...">
+                    <button name="playlist-name-submit" class="playlist-name-btn">Save</button>
+                </form>
+            </div>
+        </div>
         {% for song in playlist_songs %}
             <input type="hidden" name="songSrc" class="songSrc" value="{{ song.song.audio | b64encode }}">
             <input type="hidden" name="imgSrc" class="imgSrc" value="{{ song.song.img | b64encode }}">
@@ -61,5 +71,6 @@
     {% block elements %}
     {% endblock %}
     <script src="{{ url_for('static', filename='main_audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='playlistName.js') }}"></script>
 </body>
 </html>

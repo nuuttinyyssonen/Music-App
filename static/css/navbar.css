@@ -27,6 +27,10 @@ li a {
     color: white;
 }
 
+.fa-spotify {
+    font-size: 35px;
+}
+
 .playlistBtn {
     background-color: transparent;
     border: none;

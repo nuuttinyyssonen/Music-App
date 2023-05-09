@@ -4,3 +4,42 @@
     border-radius: 10px;
     color: white;
 }
+
+.header-playlist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(#686868, #3e3e3e);
+    padding: 50px;
+}
+
+.playlist_pic {
+    width: 170px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.change-name {
+    display: none;
+}
+
+.playlist-name-input {
+    border-radius: 5px 0px 0px 5px;
+    background-color: #3e3e3e;
+    border: none;
+    color: white;
+    height: 30px;
+}
+
+.playlist-name-input::placeholder {
+    color: white;
+}
+
+.playlist-name-btn {
+    border-radius: 0px 5px 5px 0px;
+    background-color: #3e3e3e;
+    border: none;
+    color: white;
+    border-left: 1px solid black;
+    height: 30px;
+}

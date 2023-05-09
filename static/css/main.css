@@ -7,7 +7,7 @@
     overflow-x: auto;
     place-content: center end;
     margin: 0 auto;
-    max-width: 87%;
+    width: 87%;
     max-height: 90%;
     grid-template-columns: repeat(6, 230px);
     gap: 20px;

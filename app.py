@@ -33,6 +33,7 @@ app.jinja_env.filters['b64encode'] = b64encode
 @app.route('/', methods=['GET', 'POST'])
 def login():
 	form = Login()
+	print(session['email'])
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
 		session['email'] = form.email.data
@@ -69,6 +70,7 @@ def signup():
 @login_required
 def logout():
 	logout_user()
+	session['email'] = None
 	return redirect(url_for('login'))
 
 @app.route('/main', methods=['GET', 'POST'])
@@ -87,11 +89,15 @@ def main():
 
 @app.context_processor
 def utility_processor():
-	if session['email'] != "":
+	no_user_list = []
+	try:
 		user = User.query.filter_by(email=session['email']).first()
 		user_id = user.id
 		playlists = Playlist.query.filter_by(user_id=user_id).all()
 		return dict(playlists=playlists)
+	except Exception:
+		return dict(no_user_list=no_user_list)
+	
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -140,6 +146,12 @@ def playlist(id):
 	songs = ""
 	addBtn = request.form.get('add', False)
 	song_id = request.form.get('songId')
+	playlist_name_change = request.form.get('playlist-name')
+	playlist_name_change_submit = request.form.get('playlist-name-submit', False)
+
+	if playlist_name_change_submit != False:
+		playlist.playlist_name = playlist_name_change
+		db.session.commit()
 
 	if search != False:
 		songs = Song.query.filter(Song.song_name.like('%' + searchValue + '%'))
@@ -150,8 +162,8 @@ def playlist(id):
 		db.session.commit()
 
 	playlist_songs = playlist.songs
+	playlist_name = playlist.playlist_name
 	for song in playlist_songs:
 		print(song.song)
 	
-
-	return render_template('playlist.html', playlist=playlist, songs=songs, id=id, playlist_songs=playlist_songs)
+	return render_template('playlist.html', playlist=playlist, songs=songs, id=id, playlist_songs=playlist_songs, playlist_name=playlist_name)
