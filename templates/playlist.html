@@ -20,6 +20,12 @@
                     <input name="playlist-name" class="playlist-name-input" placeholder="Enter playlist name...">
                     <button name="playlist-name-submit" class="playlist-name-btn">Save</button>
                 </form>
+                <button id="threeDots" class="more-btn">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <form action="/playlist/{{ playlist.id }}" method="post" id="dropdown-playlist-actions">
+                    <button name="delete-playlist-btn" id="delete-playlist-btn">Delete</button>
+                </form>
             </div>
         </div>
         {% for song in playlist_songs %}
@@ -71,6 +77,6 @@
     {% block elements %}
     {% endblock %}
     <script src="{{ url_for('static', filename='main_audio.js') }}"></script>
-    <script src="{{ url_for('static', filename='playlistName.js') }}"></script>
+    <script src="{{ url_for('static', filename='playlistFunctionality.js') }}"></script>
 </body>
 </html>

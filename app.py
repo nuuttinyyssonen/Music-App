@@ -144,10 +144,19 @@ def playlist(id):
 	search = request.form.get('searchBtn', False)
 	searchValue = request.form.get('search')
 	songs = ""
+
 	addBtn = request.form.get('add', False)
 	song_id = request.form.get('songId')
+
 	playlist_name_change = request.form.get('playlist-name')
 	playlist_name_change_submit = request.form.get('playlist-name-submit', False)
+
+	deletePlaylist = request.form.get('delete-playlist-btn', False)
+
+	if deletePlaylist != False:
+		db.session.delete(playlist)
+		db.session.commit()
+		return redirect(url_for('main'))
 
 	if playlist_name_change_submit != False:
 		playlist.playlist_name = playlist_name_change

@@ -43,3 +43,26 @@
     border-left: 1px solid black;
     height: 30px;
 }
+
+.playlist_name {
+    cursor: pointer;
+}
+
+.more-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+}
+
+#dropdown-playlist-actions {
+    display: none;
+    background-color: #3e3e3e;
+
+}
+
+#delete-playlist-btn {
+    border: none;
+    color: white;
+    background-color: transparent;
+}
