@@ -10,6 +10,14 @@ body {
     padding-bottom: 20px;
 }
 
+.Login-title {
+    color: black;
+}
+
+.fa-spotify {
+    font-size: 45px;
+}
+
 .login-container {
     display: flex;
     justify-content: start;

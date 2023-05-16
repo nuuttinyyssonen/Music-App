@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% include "head.html" %}
+    {% include "./add-ons/head.html" %}
     {% block head %}
     {% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
     <title>Document</title>
 </head>
 <body>
-    {% include "navbar.html" %}
+    {% include "./add-ons/navbar.html" %}
     {% block content %}
     {% endblock %}
     <div class="container">
@@ -38,10 +38,10 @@
                 </div>
             {% endfor %}
         </div>
-    {% include "player.html" %}
+    {% include "./add-ons/player.html" %}
     {% block elements %}
     {% endblock %}
     </div>
-    <script src="{{ url_for('static', filename='main_audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='Js/main_audio.js') }}"></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-from app import db, generate_password_hash, check_password_hash, UserMixin
+from ..extensions.extensions import db
+from werkzeug.security import generate_password_hash, check_password_hash 
+from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,9 +27,7 @@ class Song(db.Model, UserMixin):
 
 class Playlist(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    # song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # song = db.relationship("Song", foreign_keys='Playlist.song_id')
     songs = db.relationship("PlaylistSongs", backref='playlist')
     user = db.relationship("User", foreign_keys='Playlist.user_id')
     playlist_name = db.Column(db.String, unique=False)
