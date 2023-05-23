@@ -13,7 +13,7 @@ from .routes.songs.search import search_bp
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///my_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///music_app.db'
 
 db.init_app(app)
 login.init_app(app)
